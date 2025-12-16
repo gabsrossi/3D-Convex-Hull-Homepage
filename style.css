@@ -1,0 +1,82 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(214, 224, 233);
+  }
+
+  h1, h2, h3, h4{
+    font-family: 'Merriweather', serif;
+  }
+
+  strong{
+    font-style: italic;
+  }
+  
+  
+.navbar {
+  display: flex; /*Define a div como flex container, permitindo usar as propriedades de alinhamento e distribuição de espaço*/
+  justify-content: center; /*Centraliza os itens no meio do eixo principal*/
+  overflow: hidden; /*Especifica o que deve acontecer se o conteúdo do elemento for muito grande para caber no seu espaço.*/
+  align-items: center; /*Centraliza verticalmente */
+  background-color: #76b6db; /*Altera cor do fundo*/
+  height: 30px; /*Altura da div*/
+  text-align: center; /*Centraliza o texto horizontalmente*/
+  gap: 16px;
+  color: rgb(24, 66, 102);
+  font-family: 'Merriweather', serif;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a,
+.navbar a:visited,
+.navbar a:hover,
+.navbar a:active {
+  text-decoration: none;
+  color: rgb(24, 66, 102);
+}
+
+.container {
+  display: flex; /*Define a div como flex container, permitindo usar as propriedades de alinhamento e distribuição de espaço*/
+  justify-content: center; /*Centraliza os itens no meio do eixo principal*/
+  margin-top: 40px;
+}
+
+.content-box{
+  background-color: white;
+  width: 70%; /*largura*/
+  max-width: 800px;        /*não fica gigante em telas grandes */
+  padding: 24px;           /*espaço interno */
+  border-radius: 8px;      /*cantos arredondados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /*sombra leve */
+}
+
+.content-box h1{
+  color:rgb(24, 66, 102);
+}
+
+.fonte{
+  font-size: 12px;
+}
+
+.container a,
+.container a:visited,
+.container a:hover,
+.container a:active {
+  text-decoration: none;
+  color: rgb(24, 66, 102);
+}
+
+.videos video {
+  max-width: 300px;  /*largura máxima desejada */
+  width: 100%;       /*se a tela for menor, ajusta automaticamente */
+  height: auto;      /*mantém proporção */
+  margin: 5px;       /*espaçamento entre vídeos */
+}
+
+.imagens img{
+  max-width: 300px; /* largura máxima desejada */
+  width: 100%;      /* se a tela for menor, ajusta automaticamente */
+  height: auto;     /* mantém proporção */
+  margin: 10px 0;   /* espaço acima e abaixo */
+}

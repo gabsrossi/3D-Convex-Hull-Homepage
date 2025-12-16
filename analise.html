@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Análise de Complexidade</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="index.html">Nosso Trabalho</a>
+      <a href="plot.html">Plotagens</a>
+      <a href="analise.html">Análise Assintótica</a>
+      <a href="membros.html">Membros</a>
+    </div>
+
+    <div class="container">
+      <div class="content-box">
+        <h1>Análise Assintótica do Algoritmo</h1>
+        <p>
+          Se o nbviewer não estiver funcionando,
+        </p>
+          <a href="https://colab.research.google.com/drive/1hpFCV8F6Zhcsmh5RLjdBkeeU8B-qCkt7#scrollTo=TnJ7NS7DZ9wB" target="_blank">clique aqui</a>
+          ou
+          <a href=https://nbviewer.org/github/gabsrossi/Complex-Hull-3D/blob/main/HPR.ipynb target="_blank">aqui</a>
+
+        <iframe
+          src="https://nbviewer.org/github/gabsrossi/Complex-Hull-3D/blob/main/An%C3%A1lise_Assint%C3%B3tica.ipynb"
+          width="100%"
+          height="900"
+          style="border: none"
+        >
+        </iframe>
+        <p>
+          A análise assintótica tem como objetivo avaliar o crescimento do custo
+          computacional de um algoritmo à medida que o tamanho da entrada
+          aumenta, independentemente de fatores constantes como hardware,
+          linguagem de programação ou otimizações específicas de implementação.
+          Para isso, utiliza-se a notação de ordem de grandeza, conhecida como
+          notação Big-O, que descreve o comportamento dominante do tempo de
+          execução para entradas suficientemente grandes. <br />
+          No contexto deste trabalho, o tamanho da entrada é definido pelo
+          número \(n\)de pontos tridimensionais que compõem a nuvem de pontos
+          analisada.
+        </p>
+        <p>
+          Um algoritmo apresenta complexidade linear \(O(n)\) quando o tempo de
+          execução cresce proporcionalmente ao tamanho da entrada. Em outras
+          palavras, dobrar o número de elementos implica, aproximadamente,
+          dobrar o tempo de execução. <br />
+          No algoritmo implementado, diversas etapas possuem esse comportamento.
+          Operações como translação dos pontos em relação ao observador, cálculo
+          da norma de cada ponto, determinação do maior raio e a inversão
+          esférica (spherical flipping) percorrem todos os pontos uma única vez,
+          realizando um número constante de operações por ponto. Como a dimensão
+          dos pontos é fixa (3D), o custo dessas etapas cresce linearmente com
+          n, sendo classificadas como \(O(n)\). <br />
+          Essas etapas, apesar de necessárias para o funcionamento do algoritmo,
+          não dominam o custo total quando \(n\) se torna grande.
+        </p>
+        <p>
+          Algoritmos com complexidade \(O(nlog⁡n)\) surgem com frequência em
+          problemas geométricos, ordenação e divisão recursiva de dados. Esse
+          tipo de crescimento é mais rápido que o linear, porém
+          significativamente mais eficiente do que algoritmos quadráticos
+          \(O(n^2)\)para grandes volumes de dados.<br />
+          No algoritmo em estudo, a etapa computacionalmente dominante é o
+          cálculo do fecho convexo tridimensional dos pontos transformados. O
+          fecho convexo é obtido por meio do algoritmo Quickhull, utilizado pela
+          implementação ConvexHull da biblioteca SciPy. Para conjuntos de pontos
+          em posição geral, o Quickhull apresenta complexidade média
+          \(O(nlog⁡n)\). <br />
+          Como o fecho convexo é calculado sobre um conjunto de \(n+1\) pontos
+          (os pontos transformados mais a origem), essa etapa domina o tempo
+          total de execução, tornando irrelevantes, do ponto de vista
+          assintótico, as operações lineares executadas anteriormente.
+        </p>
+        <img src="img/analise.png" />
+        <img src="img/comparacao.png" />
+        <p>Portanto, a análise teórica e a análise empirica coicidem.</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </body>
+</html>

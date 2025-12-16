@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fecho Convexo 3D</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="index.html">Nosso Trabalho</a>
+      <a href="plot.html">Plotagens</a>
+      <a href="analise.html">Análise Assintótica</a>
+      <a href="membros.html">Membros</a>
+    </div>
+
+    <div class="container">
+      <div class="content-box">
+        <h1>
+          Visibilidade, Operador HPR e o Quickhull
+          3D
+        </h1>
+        <h3>O problema da "Visibilidade em Nuvens de Pontos"</h3>
+        <p>
+          O problema central abordado é determinar quais pontos em uma nuvem de
+          pontos 3D seriam visíveis a partir de um dado ponto de vista C. Nuvens
+          de pontos são uma representação simples e flexível, que podem ser
+          consideradas uma amostragem de uma superfície contínua. A visibilidade
+          direta é complexa porque, exceto em casos degenerados, pontos
+          individuais em uma nuvem não se ocluem mutuamente. O objetivo é
+          extrair a informação de visibilidade sem ter que reconstruir
+          explicitamente a superfície subjacente. A reconstrução de superfície é
+          um desafio, tanto teórico quanto de implementação, frequentemente
+          exigindo informação adicional como normais e amostragem densa. O
+          desafio é evitar a fase de reconstrução completa.
+        </p>
+        <p>
+          <span class="fonte">
+            <strong>Fonte: Artigo -</strong>
+            Direct Visibility of Point Sets.
+          </span>
+        </p>
+
+        <h3>Operador Hidden Point Remover (HPR)</h3>
+        <p>
+          O operador HPR, proposto por Katz, Tal e Basri, é um método simples e
+          rápido que determina os pontos visíveis numa nuvem de pontos 3D a
+          partir de um ponto de vista C.
+        </p>
+
+        <h4>Etapas do HPR</h4>
+        <p>O operador HPR é composto por duas fases principais:</p>
+
+        <ol>
+          <li>
+            <strong>Inversão (Spherical Flipping)</strong>: O ponto de vista \(
+            C \) é colocado na origem do sistema de coordenadas. Aplica-se a
+            inversão esférica (Spherical Flipping), que mapeia um ponto \( p_i
+            \) ao longo do raio de \( C \) para \( \hat{p}_i \), de forma
+            monotonicamente decrescente em \( \|p_i\| \).
+          </li>
+        </ol>
+
+        \[ \hat{p}_i = f(p_i) = p_i + 2 \bigl(R -
+        \|p_i\|\bigr)\frac{p_i}{\|p_i\|} \]
+
+        <p>onde \( R \) é o raio da esfera.</p>
+
+        <ol start="2">
+          <li>
+            <strong>Construção do Fecho Convexo:</strong>
+            O princípio central é que extrair os pontos que residem no fecho
+            convexo da nuvem de pontos transformada \( \hat{P} \cup \{C\} \) é
+            equivalente a determinar os pontos visíveis.
+          </li>
+        </ol>
+        <p>
+          <span class="fonte">
+            <strong>Fontes: Artigo -</strong> Direct Visibility of Point Sets.
+            <strong> Documento -</strong> HPR: Visibilidade em Nuvens de Pontos
+            3D.
+          </span>
+        </p>
+
+        <h4>Complexidade do HPR</h4>
+        <p>
+          O operador HPR é muito eficiente, com uma complexidade assintótica de
+          \(O(n \log n\)). Esta complexidade é dominada pela segunda etapa
+          (cálculo do fecho convexo), já que a inversão esférica, uma operação
+          vetorial, leva \(O(n\)).
+        </p>
+        <p>
+          Esse tópico será melhor detalhado na aba de
+          <a href="analise.html">"Análise Assintótica"</a>
+        </p>
+        <p>
+          <span class="fonte">
+            <strong>Fontes: Artigo -</strong> Direct Visibility of Point Sets.
+          </span>
+        </p>
+
+        <h3>Fecho Convexo (Convex Hull)</h3>
+        <p>
+          O fecho convexo de um conjunto de pontos \(P\) é o menor conjunto
+          convexo que contém \(P\). Em \(\mathbb{R}^3\), o fecho convexo de um
+          conjunto de pontos é um poliedro convexo (ou 3-polítopo). O fecho
+          convexo é o fecho convexo dos seus vértices.
+        </p>
+
+        <h4>Termilogia e Estrutura</h4>
+        <p>
+          A fronteira de um poliedro convexo consiste em vértices (0-face),
+          arestas (1-face) e faces (facetas, ou 2-face)
+        </p>
+        <li>
+          Um polítopo convexo é a intersecção de um número finito de semiespaços
+          fechados.
+        </li>
+        <li>
+          Um hiperplano suporta um polítopo convexo \(P\) se a sua interseção
+          \(h \cap P\) não for vazia e se \(P\) estiver inteiramente contido em
+          um dos semiespaços definidos por \(h\) \((h^+\) ou \(h^-\))
+        </li>
+        <p>
+          <span class="fonte">
+            <strong>Fontes: Documento -</strong> 05-convexhull-3d.pdf.
+            <strong> Documento -</strong> cg-hull3d.pdf.
+          </span>
+        </p>
+
+        <h3>Quickhull</h3>
+        <p>
+          O Quickhull é um algoritmo estático de comum implementação para o
+          cálculo do fecho convexo, incluindo em 3D, e é utilizado em
+          bibliotecas como CGAL (Função convex_hull_3()). De maneira conceitual, ele segue uma estratégia
+          semelhante à do algoritmo de ordenação quicksort, pois: Primeiro, identifica os pontos extremos do conjunto e
+          esses pontos forma uma estrutura inicial de fecho convexo. Então, o conjunto de pontos é dividido recursivamente em subconjuntos,
+          adicionando apenas os pontos que realmente contribuem para a fronteira do fecho.
+          Sua eficiência decorre de que muitos pontos são eliminados nas primeiras etapas e apenas uma fração deles acaba pertencendo à fronteirado fecho convexo. 
+          Além disso, o algorito evita comparar todos os pares de pontos.
+        </p>
+        <h4>Complexidade do Quickhull</h4>
+        O Quickhull possui uma complexidade de tempo \(O(n \log n\)) no caso
+        esperado e \(O(n^2)\) no pior caso em 2D. O algoritmo é sensível ao
+        *output*, o que significa que seu desempenho depende do número de faces
+        \(h\) no fecho convexo. Se \(h\) \(\ll n\), ele pode ser ótimo.
+        <p>
+        <p>
+          Esse tópico será melhor detalhado na aba de
+          <a href="analise.html">"Análise Assintótica"</a>
+        </p>          
+          <span class="fonte">
+            <strong>Fontes: Documento -</strong> 05-convexhull-3d.pdf.
+            <strong> Manual do Utilizador -</strong> CGAL 6.1 - 3D Convex Hulls: User Manual.
+          </span>
+        </p>
+        <h4>Método Incremental Randomizado em 3D</h4>
+        <p>
+          O Quickhull 3D geralmente segue um método incremental:
+        </p>
+        <ol>
+          <li>
+            <b>Inicialização:</b> O algoritmo começa com a construção de um tetraedro inicial. É importante que este tetraedro maximize o seu volume para evitar degeneração.
+          </li>
+          <li>
+            <b>Orientação:</b> As faces do tetraedro são organizadas para que as suas normais apontem para fora.
+          </li>
+          <li>
+            <b>Grafo de Conflito:</b> É mantido um grafo de conflito para rastrear os pontos não processados e as facetas do Fecho Convexo que são 
+            visíveis por esses pontos. Uma face \(f\) é visível de um ponto \(p\) se \(p\) se encontra no semiespaço aberto do outro lado 
+            do hiperplano \(h_f\) do que o polítopo.
+          </li>
+          <li>
+            <b>Loop Principal (Inserção):</b> Os pontos restantes são processados (tipicamente em ordem randômica). Se um ponto \(p_r\) está fora do 
+            Fecho Convexo atual, as faces visíveis desse ponto são removidas, e o horizonte é calculado. O horizonte é o conjunto de 
+            arestas incidentes a faces visíveis e invisíveis.
+          </li>
+          <li>
+            <b>Criação de Novas Faces:</b> Novas faces triangulares são criadas conectando as arestas do horizonte ao ponto inserido \(p_r\)
+          </li>
+          <li>
+            <b>Atualização:</b> O grafo de conflito é atualizado para as novas faces, e os pontos removidos são retestados para as novas facetas.
+          </li>
+        </ol>
+        </p>          
+          <span class="fonte">
+            <strong>Fontes: Documento -</strong> 05-convexhull-3d.pdf.
+            <strong> Documento -</strong> Algoritmo Quickhull para Fecho Convexo 3D.
+            <strong>Quickhull: A Jornada do Fecho Convexo 3D.</strong>
+          </span>
+        </p>
+
+        <h3>Dificuldades</h3>
+        <p>
+          Durante a realização deste trabalho, a equipe enfrentou algumas dificuldades significativas, principalmente relacionadas à implementação em Python. 
+          Duas integrantes do grupo não possuíam conhecimento prévio da linguagem, o que dificultou a identificação e correção de problemas no código. 
+          Muitas vezes, erros de sintaxe ou de lógica passaram despercebidos, tornando necessário o esforço conjunto para localizar e compreender cada falha. 
+        </p>
+        <p>
+          Outro desafio importante foi a visualização dos resultados, especialmente ao trabalhar com grandes conjuntos de pontos em 3D. Configurar plots interativos, ajustar 
+          cores, tamanhos e transparências para que o resultado fosse legível e representativo exigiu várias tentativas, aprendizado e paciência. Além disso, 
+          a equipe enfrentou limitações de hardware: os computadores disponíveis não conseguiam processar ou renderizar de forma eficiente centenas ou milhares 
+          de pontos, tornando necessário reduzir a quantidade de pontos em algumas experiências ou adotar técnicas de amostragem para conseguir gerar os gráficos.
+        </p>
+        <p>
+          Também foi necessário compreender e aplicar conceitos de geometria computacional, como fecho convexo e detecção de pontos visíveis (HPR), o que demandou 
+          tempo adicional para entender tanto a matemática envolvida quanto a implementação prática em Python.
+        </p>
+        <p>
+          Apesar dessas dificuldades, o trabalho permitiu que todas as integrantes adquirissem experiência prática em programação, 
+          depuração de código e visualização científica, contribuindo significativamente para o aprendizado coletivo.
+        </p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </body>
+</html>
